@@ -21,8 +21,8 @@ Movie App is an iOS application that fetches and displays movie details using Th
 ## Setup Instructions
 ### 1. Clone the Repository
 ```sh
-git clone https://github.com/yourusername/MovieApp.git
-cd MovieApp
+git clone https://github.com/abhi9soni/MovieList.git
+cd MovieList
 ```
 
 ### 2. Install Dependencies
