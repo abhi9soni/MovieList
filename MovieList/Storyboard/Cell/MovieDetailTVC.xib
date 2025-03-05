@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Text-Regular.otf">
+            <string>SFProText-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MovieDetailTVC" rowHeight="97" id="i7u-Vz-P3T" customClass="MovieDetailTVC" customModule="MovieList" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="359" height="97"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="i7u-Vz-P3T" id="QG3-b0-td5">
+                <rect key="frame" x="0.0" y="0.0" width="359" height="97"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Censor Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JOV-1s-x6Z">
+                        <rect key="frame" x="24" y="0.0" width="80" height="14.666666666666666"/>
+                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="12"/>
+                        <color key="textColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D6r-85-Kh3">
+                        <rect key="frame" x="24" y="19.666666666666668" width="0.0" height="0.0"/>
+                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="aaa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYH-fO-N6m">
+                        <rect key="frame" x="311.66666666666669" y="19.666666666666668" width="23.333333333333314" height="17.000000000000004"/>
+                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OAf-zD-sUG">
+                        <rect key="frame" x="155.33333333333334" y="0.0" width="48.333333333333343" height="14.666666666666666"/>
+                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="12"/>
+                        <color key="textColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wQq-6v-niy">
+                        <rect key="frame" x="155.33333333333334" y="19.666666666666668" width="0.0" height="0.0"/>
+                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TOr-Jq-gdf">
+                        <rect key="frame" x="23.999999999999996" y="33.666666666666664" width="63.666666666666657" height="14.333333333333336"/>
+                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="12"/>
+                        <color key="textColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mUy-ez-A6i">
+                        <rect key="frame" x="24" y="53" width="0.0" height="0.0"/>
+                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Format" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="okl-oe-nt4">
+                        <rect key="frame" x="155.33333333333334" y="33.666666666666664" width="40.333333333333343" height="14.333333333333336"/>
+                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="12"/>
+                        <color key="textColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zl1-vA-IMa">
+                        <rect key="frame" x="155.33333333333334" y="53" width="0.0" height="0.0"/>
+                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Release Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XkD-eL-T0E">
+                        <rect key="frame" x="311.66666666666669" y="0.0" width="74.333333333333314" height="14.666666666666666"/>
+                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="12"/>
+                        <color key="textColor" red="0.47843137250000001" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6BY-8l-MF3">
+                        <rect key="frame" x="24" y="83" width="311" height="1"/>
+                        <color key="backgroundColor" red="0.92941176469999998" green="0.90980392160000001" blue="0.91372549020000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="9mi-pG-gun"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="JOV-1s-x6Z" firstAttribute="top" secondItem="QG3-b0-td5" secondAttribute="top" id="1sh-vl-2Jn"/>
+                    <constraint firstItem="JOV-1s-x6Z" firstAttribute="leading" secondItem="QG3-b0-td5" secondAttribute="leading" constant="24" id="2li-kU-e7j"/>
+                    <constraint firstAttribute="trailing" secondItem="nYH-fO-N6m" secondAttribute="trailing" constant="24" id="4YC-J6-QOe"/>
+                    <constraint firstItem="D6r-85-Kh3" firstAttribute="leading" secondItem="JOV-1s-x6Z" secondAttribute="leading" id="4wM-Z0-o9k"/>
+                    <constraint firstItem="nYH-fO-N6m" firstAttribute="leading" secondItem="XkD-eL-T0E" secondAttribute="leading" id="5vi-4b-Zgf"/>
+                    <constraint firstItem="Zl1-vA-IMa" firstAttribute="leading" secondItem="okl-oe-nt4" secondAttribute="leading" id="Fze-yU-34O"/>
+                    <constraint firstItem="mUy-ez-A6i" firstAttribute="leading" secondItem="TOr-Jq-gdf" secondAttribute="leading" id="HZf-dc-S9g"/>
+                    <constraint firstItem="XkD-eL-T0E" firstAttribute="centerY" secondItem="JOV-1s-x6Z" secondAttribute="centerY" id="Hbv-wK-fP8"/>
+                    <constraint firstAttribute="bottom" secondItem="6BY-8l-MF3" secondAttribute="bottom" constant="13" id="I73-78-tvb"/>
+                    <constraint firstItem="okl-oe-nt4" firstAttribute="centerY" secondItem="TOr-Jq-gdf" secondAttribute="centerY" id="Jov-MI-u7Q"/>
+                    <constraint firstItem="6BY-8l-MF3" firstAttribute="leading" secondItem="QG3-b0-td5" secondAttribute="leading" constant="24" id="Kfp-cw-2tD"/>
+                    <constraint firstItem="okl-oe-nt4" firstAttribute="leading" secondItem="OAf-zD-sUG" secondAttribute="leading" id="Kxd-v4-Jfj"/>
+                    <constraint firstItem="wQq-6v-niy" firstAttribute="leading" secondItem="OAf-zD-sUG" secondAttribute="leading" id="PAx-6k-p9K"/>
+                    <constraint firstItem="TOr-Jq-gdf" firstAttribute="top" secondItem="D6r-85-Kh3" secondAttribute="bottom" constant="14" id="Q0j-EE-aCK"/>
+                    <constraint firstItem="TOr-Jq-gdf" firstAttribute="leading" secondItem="D6r-85-Kh3" secondAttribute="leading" id="V2C-Oz-Ea7"/>
+                    <constraint firstAttribute="trailing" secondItem="6BY-8l-MF3" secondAttribute="trailing" constant="24" id="VFJ-Yd-yVu"/>
+                    <constraint firstItem="wQq-6v-niy" firstAttribute="top" secondItem="OAf-zD-sUG" secondAttribute="bottom" constant="5" id="XiX-yY-enx"/>
+                    <constraint firstItem="mUy-ez-A6i" firstAttribute="top" secondItem="TOr-Jq-gdf" secondAttribute="bottom" constant="5" id="YWk-7I-H8i"/>
+                    <constraint firstItem="D6r-85-Kh3" firstAttribute="top" secondItem="JOV-1s-x6Z" secondAttribute="bottom" constant="5" id="bNZ-Vj-TRA"/>
+                    <constraint firstItem="OAf-zD-sUG" firstAttribute="centerY" secondItem="JOV-1s-x6Z" secondAttribute="centerY" id="ckv-Rf-mdi"/>
+                    <constraint firstItem="Zl1-vA-IMa" firstAttribute="top" secondItem="okl-oe-nt4" secondAttribute="bottom" constant="5" id="fHq-r1-fg7"/>
+                    <constraint firstItem="nYH-fO-N6m" firstAttribute="top" secondItem="XkD-eL-T0E" secondAttribute="bottom" constant="5" id="lpg-c1-Sje"/>
+                    <constraint firstItem="OAf-zD-sUG" firstAttribute="centerX" secondItem="QG3-b0-td5" secondAttribute="centerX" id="sb5-sU-yWC"/>
+                    <constraint firstItem="OAf-zD-sUG" firstAttribute="centerY" secondItem="XkD-eL-T0E" secondAttribute="centerY" id="tse-HL-iXW"/>
+                    <constraint firstItem="6BY-8l-MF3" firstAttribute="top" secondItem="mUy-ez-A6i" secondAttribute="bottom" constant="30" id="zuJ-AW-tiQ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="1zk-E9-YYe"/>
+            <connections>
+                <outlet property="lblAvailableLng" destination="mUy-ez-A6i" id="ruh-6R-W8Z"/>
+                <outlet property="lblDuration" destination="wQq-6v-niy" id="k5w-oB-nMK"/>
+                <outlet property="lblFormat" destination="Zl1-vA-IMa" id="eta-mg-y9R"/>
+                <outlet property="lblRating" destination="D6r-85-Kh3" id="CuQ-ZZ-AYI"/>
+                <outlet property="lblReleaseDate" destination="nYH-fO-N6m" id="9Wp-gO-ka0"/>
+                <outlet property="viewLineSeprator" destination="6BY-8l-MF3" id="Ng2-A1-53H"/>
+            </connections>
+            <point key="canvasLocation" x="281.67938931297709" y="88.380281690140848"/>
+        </tableViewCell>
+    </objects>
+</document>
