@@ -9,12 +9,12 @@ import Foundation
 import UIKit
 import CoreData
 
-
+// MARK: - Favorites Manager (Singleton)
 class FavoritesManager {
     static let shared = FavoritesManager()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
-    
+    // MARK: - Add Favorite Movie
     func addFavorite(movie: Movie) {
         let favorite = FavoriteMovie(context: context)
         favorite.title = movie.title
@@ -23,7 +23,7 @@ class FavoritesManager {
         favorite.movieId = Int64(movie.id)
         try? context.save()
     }
-    
+    // MARK: - Remove Favorite Movie
     func removeFavorite(movie: Movie) {
         let fetchRequest: NSFetchRequest<FavoriteMovie> = FavoriteMovie.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "movieId == %d", movie.id)
@@ -32,12 +32,13 @@ class FavoritesManager {
             try? context.save()
         }
     }
-    
+    // MARK: - Check If Movie is Favorite
     func isFavorite(movie: Movie) -> Bool {
         let fetchRequest: NSFetchRequest<FavoriteMovie> = FavoriteMovie.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "movieId == %d", movie.id)
         return (try? context.fetch(fetchRequest).count) ?? 0 > 0
     }
+    // MARK: - Get Favorite Movies
     func getFavorites() -> [Movie] {
         let fetchRequest: NSFetchRequest<FavoriteMovie> = FavoriteMovie.fetchRequest()
         do {

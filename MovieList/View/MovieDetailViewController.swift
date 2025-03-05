@@ -7,83 +7,117 @@
 
 import UIKit
 
+// MARK: - Movie Detail View Controller
+/// ViewController responsible for displaying detailed information about a selected movie.
 class MovieDetailViewController: UIViewController {
-    @IBOutlet weak var tableView:UITableView!
+    
+    
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var btnLike: UIButton!
     var viewModel = MovieDetailViewModel()
     var favViewModel = FavoritesViewModel()
     var movieId = ""
-    var addMore = false
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        if self.movieId != ""{
-            viewModel.movieDetailApi(movieId: self.movieId) { status in
-                if status{
+        loadMovieDetails()
+    }
+    
+    // MARK: - Load Movie Details
+    /// Fetches movie details using `viewModel`.
+    func loadMovieDetails() {
+        if !movieId.isEmpty {
+            viewModel.movieDetailApi(movieId: movieId) { status in
+                if status {
                     self.setupUI()
                     self.tableView.reloadData()
-                }else{
-                    print("XXXXXXX")
+                } else {
+                    print("Error fetching movie details.")
                 }
             }
         }
-        // Do any additional setup after loading the view.
     }
     
-    func setupUI(){        
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.register(UINib(nibName: "MovieDetailTVC", bundle: nil), forCellReuseIdentifier: "MovieDetailTVC")
-        self.tableView.register(UINib(nibName: "MoviePosterTVC", bundle: nil), forCellReuseIdentifier: "MoviePosterTVC")
-        self.tableView.register(UINib(nibName: "OverviewTVC", bundle: nil), forCellReuseIdentifier: "OverviewTVC")
-        if let data = self.viewModel.moviesDetail{
-            let movie = Movie(id: data.id ?? 0, title: data.title, adult: false, originalTitle: data.originalTitle, overview: data.overview, posterPath: data.posterPath, backdropPath: data.backdropPath, releaseDate: data.releaseDate, voteAverage: 0, voteCount: 0, popularity: 0, genreIDs: [])
-            if FavoritesManager.shared.isFavorite(movie: movie){
-                self.btnLike.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            }else{
-                self.btnLike.setImage(UIImage(systemName: "heart"), for: .normal)
-            }
+    // MARK: - Setup UI
+    /// Configures UI elements and updates the like button state.
+    func setupUI() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UINib(nibName: Constants.Cell.MovieDetailTVC, bundle: nil),
+                           forCellReuseIdentifier: Constants.Cell.MovieDetailTVC)
+        tableView.register(UINib(nibName: Constants.Cell.MoviePosterTVC, bundle: nil),
+                           forCellReuseIdentifier: Constants.Cell.MoviePosterTVC)
+        tableView.register(UINib(nibName: Constants.Cell.OverviewTVC, bundle: nil),
+                           forCellReuseIdentifier: Constants.Cell.OverviewTVC)
+        
+        if let data = viewModel.moviesDetail {
+            let movie = Movie(id: data.id ?? 0, title: data.title, adult: false,
+                              originalTitle: data.originalTitle, overview: data.overview,
+                              posterPath: data.posterPath, backdropPath: data.backdropPath,
+                              releaseDate: data.releaseDate, voteAverage: 0,
+                              voteCount: 0, popularity: 0, genreIDs: [])
+            
+            updateLikeButton(for: movie)
         }
     }
     
-    @IBAction func btnBackAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+    // MARK: - Update Like Button State
+    /// Updates the like button image based on whether the movie is in favorites.
+    ///
+    /// - Parameter movie: The movie to check for favorite status.
+    func updateLikeButton(for movie: Movie) {
+        let isFavorite = FavoritesManager.shared.isFavorite(movie: movie)
+        let imageName = isFavorite ? "heart.fill" : "heart"
+        btnLike.setImage(UIImage(systemName: imageName), for: .normal)
     }
+    
+    // MARK: - Button Actions
+    @IBAction func btnBackAction(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    /// Toggles the favorite status of the movie.
     @IBAction func btnLikeAction(_ sender: UIButton) {
-        if let data = viewModel.moviesDetail{
-            let movie = Movie(id: data.id ?? 0, title: data.title, adult: false, originalTitle: data.originalTitle, overview: data.overview, posterPath: data.posterPath, backdropPath: data.backdropPath, releaseDate: data.releaseDate, voteAverage: 0, voteCount: 0, popularity: 0, genreIDs: [])
-            self.favViewModel.toggleFavorite(movie: movie)
-            if FavoritesManager.shared.isFavorite(movie: movie){
-                self.btnLike.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            }else{
-                self.btnLike.setImage(UIImage(systemName: "heart"), for: .normal)
-            }
-            self.tableView.reloadData()
+        if let data = viewModel.moviesDetail {
+            let movie = Movie(id: data.id ?? 0, title: data.title, adult: false,
+                              originalTitle: data.originalTitle, overview: data.overview,
+                              posterPath: data.posterPath, backdropPath: data.backdropPath,
+                              releaseDate: data.releaseDate, voteAverage: 0,
+                              voteCount: 0, popularity: 0, genreIDs: [])
+            
+            favViewModel.toggleFavorite(movie: movie)
+            updateLikeButton(for: movie)
+            tableView.reloadData()
         }
     }
 }
-extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource{
+
+// MARK: - UITableViewDelegate & UITableViewDataSource
+extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension        
+        return UITableView.automaticDimension
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.row == 0{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MoviePosterTVC", for: indexPath) as! MoviePosterTVC
-            if let data = viewModel.moviesDetail{
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.MoviePosterTVC, for: indexPath) as! MoviePosterTVC
+            if let data = viewModel.moviesDetail {
                 cell.displayMovieData(data)
             }
             return cell
-        }else if indexPath.row == 2{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "OverviewTVC", for: indexPath) as! OverviewTVC
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.OverviewTVC, for: indexPath) as! OverviewTVC
             cell.lblPlotDetail.text = viewModel.moviesDetail?.overview
             return cell
-        } else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MovieDetailTVC", for: indexPath) as! MovieDetailTVC
-            if let data = viewModel.moviesDetail{
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Cell.MovieDetailTVC, for: indexPath) as! MovieDetailTVC
+            if let data = viewModel.moviesDetail {
                 cell.displayMovieData(data)
             }
             return cell

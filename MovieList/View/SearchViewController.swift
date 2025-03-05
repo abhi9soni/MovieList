@@ -8,107 +8,128 @@
 import UIKit
 import Kingfisher
 
+// MARK: - Search View Controller
+/// ViewController responsible for searching and displaying movies.
 class SearchViewController: UIViewController {
     
-    
-    @IBOutlet weak var collectionView:UICollectionView!
+    // MARK: - IBOutlets
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var viewSearchBack: UIView!
     @IBOutlet weak var viewNoDataFound: UIView!
     @IBOutlet weak var txtFieldSearch: UITextField!
+    
+    // MARK: - Properties
+    /// ViewModel handling movie data fetching.
     var viewModel = MovieViewModel()
+    
+    /// ViewModel for managing favorites.
     var favViewModel = FavoritesViewModel()
+    
+    /// List of movies based on search results.
     var movieList = [Movie]()
+    
+    /// Full list of movies before filtering.
     var dummyMovieList = [Movie]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        // Do any additional setup after loading the view.
     }
+    
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         setupUI()
+        fetchMovies()
+    }
+    
+    // MARK: - UI Setup
+    /// Configures the UI elements.
+    func setupUI() {
+        viewSearchBack.layer.cornerRadius = viewSearchBack.frame.height / 2
+        viewSearchBack.layer.borderColor = UIColor.lightGray.cgColor
+        viewSearchBack.layer.borderWidth = 1.0
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(UINib(nibName: Constants.Cell.MovieCVC, bundle: nil),
+                                forCellWithReuseIdentifier: Constants.Cell.MovieCVC)
+    }
+    
+    // MARK: - Fetch Movies
+    /// Fetches movies for the search screen.
+    func fetchMovies() {
         viewModel.searchMovies { status in
-            if status{
+            if status {
                 self.movieList = self.viewModel.movies
                 self.dummyMovieList = self.viewModel.movies
                 self.collectionView.reloadData()
-            }else{
-                print("XXXXXXX")
+            } else {
+                print("Error fetching movies.")
             }
         }
     }
     
-    func setupUI(){
-        self.viewSearchBack.layer.cornerRadius = viewSearchBack.frame.height / 2
-        self.viewSearchBack.layer.borderColor = #colorLiteral(red: 0.8602910638, green: 0.8602909446, blue: 0.8602909446, alpha: 1)
-        self.viewSearchBack.layer.borderWidth = 1.0
-        
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-        self.collectionView.register(UINib(nibName: "MovieCVC", bundle: nil), forCellWithReuseIdentifier: "MovieCVC")
-        
-    }
+    // MARK: - Button Actions
     @IBAction func btnFavListAction(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier:"FavViewController") as! FavViewController
-        self.navigationController?.pushViewController(vc, animated: true)
+        let storyboard = UIStoryboard(name: Constants.StoryBoard.Main, bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: Constants.Controller.FavViewController) as! FavViewController
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func txtFieldTextChange(_ sender: UITextField) {
-        self.movieList = self.dummyMovieList.filter{ dict in
-            var v = true
-            if ((!((self.txtFieldSearch.text?.isEmpty)!))){
-                let ds = dict.title ?? ""
-                v = (v && ((ds.localizedCaseInsensitiveContains(self.txtFieldSearch.text!))))
-            }
-            return v
+        guard let searchText = txtFieldSearch.text, !searchText.isEmpty else {
+            movieList = dummyMovieList
+            updateNoDataFoundView()
+            collectionView.reloadData()
+            return
         }
         
-        print(self.movieList)
-        print(self.dummyMovieList)
-        if movieList.count > 0{
-            self.collectionView.reloadData()
-            self.viewNoDataFound.isHidden = true
-        }else{
-            self.viewNoDataFound.isHidden = false
-        }
+        movieList = dummyMovieList.filter { $0.title?.localizedCaseInsensitiveContains(searchText) ?? false }
+        
+        updateNoDataFoundView()
+        collectionView.reloadData()
     }
+    
+    /// Updates the visibility of the "No Data Found" view.
+    func updateNoDataFoundView() {
+        viewNoDataFound.isHidden = !movieList.isEmpty
+    }
+    
+    /// Handles the favorite button tap.
     @objc func btnLikeAction(_ sender: UIButton) {
-        let movie = self.movieList[sender.tag]
-        self.favViewModel.toggleFavorite(movie: movie)
-        self.collectionView.reloadData()
+        let movie = movieList[sender.tag]
+        favViewModel.toggleFavorite(movie: movie)
+        collectionView.reloadData()
     }
 }
-extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+
+// MARK: - UICollectionView Delegate & DataSource
+extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.movieList.count
+        return movieList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCVC", for: indexPath) as! MovieCVC
-        let data = movieList
-        if data.count > 0{
-            cell.displayMovieData(data[indexPath.item])
-        }
-        
-        if FavoritesManager.shared.isFavorite(movie: movieList[indexPath.item]){
-            cell.btnLike.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        }else{
-            cell.btnLike.setImage(UIImage(systemName: "heart"), for: .normal)
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Cell.MovieCVC, for: indexPath) as! MovieCVC
+        let movie = movieList[indexPath.item]
+        cell.displayMovieData(movie)
+        let isFavorite = FavoritesManager.shared.isFavorite(movie: movie)
+        let imageName = isFavorite ? "heart.fill" : "heart"
+        cell.btnLike.setImage(UIImage(systemName: imageName), for: .normal)
         cell.btnLike.tag = indexPath.row
         cell.btnLike.addTarget(self, action: #selector(btnLikeAction), for: .touchUpInside)
+        
         return cell
-
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.size.width/2 - 10, height: 330)
+        return CGSize(width: UIScreen.main.bounds.width / 2 - 10, height: 330)
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier:"MovieDetailViewController") as! MovieDetailViewController
+        let storyboard = UIStoryboard(name: Constants.StoryBoard.Main, bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: Constants.Controller.MovieDetailViewController) as! MovieDetailViewController
         vc.movieId = "\(movieList[indexPath.item].id)"
-        self.navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

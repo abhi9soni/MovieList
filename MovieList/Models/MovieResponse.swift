@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+// MARK: - Movie Response Model
 struct MovieResponse: Codable {
     let results: [Movie]
 }

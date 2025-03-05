@@ -7,12 +7,13 @@
 
 import Foundation
 
-
+// MARK: - Movie Service (Singleton)
 class MovieService {
     static let shared = MovieService()
     private let apiKey = Constants.apiKey
     private let baseUrl = Constants.baseUrl
     
+    // MARK: - Fetch Movie List
     func movieList(endPoint: String) async throws -> [Movie] {
         let url = URL(string: "\(baseUrl)\(endPoint)")!
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
@@ -32,10 +33,10 @@ class MovieService {
 
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
-            // Debug: Print API Response
-            if let jsonString = String(data: data, encoding: .utf8) {
-                print("Raw API Response: \(jsonString)")
-            }
+            // MARK: - Debugging: Print Raw API Response
+//            if let jsonString = String(data: data, encoding: .utf8) {
+//                print("Raw API Response: \(jsonString)")
+//            }
             let decoder = JSONDecoder()
             let movieResponse = try decoder.decode(MovieResponse.self, from: data)
             print("movieResponse-----: \(movieResponse)")
@@ -46,7 +47,7 @@ class MovieService {
             throw error
         }
     }
-    
+    // MARK: - Fetch Movie Details
     func movieDetail(endPoint: String) async throws -> MovieDetail {
         let url = URL(string: "\(baseUrl)\(endPoint)")!
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
@@ -62,7 +63,8 @@ class MovieService {
             "accept": "application/json",
             "Authorization": "Bearer \(apiKey)"
         ]
-        print("Raw API request:----- \(request)")
+        // MARK: - Debugging: Print Raw API Request
+//        print("Raw API request:----- \(request)")
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
             // Debug: Print API Response

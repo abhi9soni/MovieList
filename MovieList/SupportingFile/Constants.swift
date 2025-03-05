@@ -15,6 +15,21 @@ struct Constants {
         static let movieDetails = "movie/"
         static let nowPlaying = "movie/now_playing"
     }
+    struct Controller{
+        static let FavViewController = "FavViewController"
+        static let MovieDetailViewController = "MovieDetailViewController"
+        static let SearchViewController = "SearchViewController"
+        
+    }
+    struct Cell{
+        static let MovieCVC = "MovieCVC"
+        static let MovieDetailTVC = "MovieDetailTVC"
+        static let MoviePosterTVC = "MoviePosterTVC"
+        static let OverviewTVC = "OverviewTVC"
+    }
+    struct StoryBoard{
+        static let Main = "Main"
+    }
     
     struct ErrorMessages {
         static let networkError = "Unable to fetch data. Please check your internet connection."

@@ -61,7 +61,7 @@
                                                 </constraints>
                                             </imageView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search a movie" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sJ0-ij-wba">
-                                                <rect key="frame" x="43.000000000000007" y="0.0" width="98.666666666666686" height="40"/>
+                                                <rect key="frame" x="43" y="0.0" width="310" height="40"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
@@ -78,6 +78,7 @@
                                             <constraint firstItem="sJ0-ij-wba" firstAttribute="top" secondItem="szE-1Y-qa5" secondAttribute="top" id="Q5r-ee-sAt"/>
                                             <constraint firstAttribute="bottom" secondItem="sJ0-ij-wba" secondAttribute="bottom" id="aWb-XO-4GA"/>
                                             <constraint firstItem="vKa-3t-6XL" firstAttribute="centerY" secondItem="szE-1Y-qa5" secondAttribute="centerY" id="hLM-sV-za3"/>
+                                            <constraint firstAttribute="trailing" secondItem="sJ0-ij-wba" secondAttribute="trailing" id="ybT-K4-38z"/>
                                         </constraints>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NsK-0r-IFv">
